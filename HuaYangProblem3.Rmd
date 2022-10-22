@@ -1,0 +1,51 @@
+---
+title: "HuaYangProblemsSet3"
+author: "Hua Yang"
+date: "2022-10-21"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GBA 5140 Statistics Essentials for Business Analytics
+## Problem Set 3
+## Probability Distribution
+
+
+Problem 1
+Automobile repair costs continue to rise with the average cost now at $367 per repair (U.S. News & World Report website, January 5, 2015). Assume that the cost for an automobile repair is normally distributed with a standard deviation of $88. Write R code to achieve the following tasks. Post your R code and RStudio output (console output) below each task.
+
+ ```{r }
+```
+
+**1.What is the probability that the cost will be more than $450?**
+```{r mtcars_df}
+print(paste("the probability that the cost will be more than $450: ",pnorm(450,mean=367,sd=88,lower.tail = FALSE)))
+```
+
+**2.What is the probability that the cost will be less than $250?**
+
+```{r }
+print(paste("the probability that the cost will be less than $250: ",pnorm(250,mean=367,sd=88)))
+```
+
+ 
+
+**3.What is the probability that the cost will be between $250 and $450?**
+
+```{r}
+print(paste("the probability that the cost will be between $250 and $450: ",pnorm(450,mean=367,sd=88)-pnorm(250,mean=367,sd=88)))
+```
+
+ 
+
+**4.If the cost of your car repair is in the lower 5% of automobile repair charges, what is your cost?**
+```{r}
+print(paste("If the cost of your car repair is in the lower 5% of automobile repair charges, cost: ",qnorm(0.05,mean=367,sd=88)))
+```
+

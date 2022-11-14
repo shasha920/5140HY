@@ -40,7 +40,7 @@ n<-30
 df<-n-1
 var.zero<-100
 s<-sqrt(162)
-apha<-0.05
+alpha<-0.05
 #P-value approach:
 print("Null hypothesis (H0): There is no difference in the variance of test scores between two versions of test.")
 print("Alternative hypothesis (Ha): There is significant difference in the variance of test scores between two versions of the test.")
@@ -58,7 +58,7 @@ chisq.alpha.lt<-qchisq(alpha/2,df=df,lower.tail = TRUE)
 chisq.alpha.rt<-qchisq(alpha/2,df=df,lower.tail = FALSE)
 print(paste("chisq=",chisq,"and chisq.alpha.lt=",chisq.alpha.lt,"and chisq.alpha.rt=",chisq.alpha.rt))
 print(paste("Rejection region:(0, ",chisq.alpha.lt,"] and [",chisq.alpha.rt,", +inf)",sep=""))
-print(paste("chisq<=chisq.alpha.lt is ",chisq<=chisq.alpha.lt,",chisq>=f.alpha.rt is ",chisq>=chisq.alpha.rt,sep=""))
+print(paste("chisq<=chisq.alpha.lt is ",chisq<=chisq.alpha.lt,",chisq>=chisq.alpha.rt is ",chisq>=chisq.alpha.rt,sep=""))
 print(paste("H0 is ",ifelse(chisq<=chisq.alpha.lt | chisq>=chisq.alpha.rt,"","not "),"rejected.",sep=""))
 
 
@@ -103,8 +103,8 @@ print(paste("H0 is ",ifelse(f<=f.alpha.lt | f>=f.alpha.rt,"","not "),"rejected."
 #such that the test is an upper one-tailed test
 n1<-41
 n2<-31
-df<-n1-1
-df<-n2-1
+df1<-n1-1
+df2<-n2-1
 s1<-sqrt(120)
 s2<-sqrt(80)
 alpha<-0.05

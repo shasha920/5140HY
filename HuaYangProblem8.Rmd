@@ -1,0 +1,104 @@
+---
+title: "HuaYangProblemSet8"
+author: "Hua Yang"
+date: "2022-11-13"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GBA 5140 Statistics Essentials for Business Analytics
+## Problem Set 8
+## Inference about Population Variances
+
+
+Problem 1
+The variance in drug weights is critical in the pharmaceutical industry. For a specific drug, with weights measured in grams, a sample of 18 units provided a sample variance of 0.36. Write R code for the following tasks. Post your R code and RStudio output (console output) below each task.
+
+
+
+```{r }
+
+```
+
+**1.Construct a 90% confidence interval estimate of the population variance for the weight of this drug.**
+```{r }
+n<-18
+s<-sqrt(0.36)
+alpha<-1-0.9
+df<-n-1
+chisq.lt<-qchisq(alpha/2,df=df,lower.tail = TRUE)
+chisq.rt<-qchisq(alpha/2,df=df,lower.tail = FALSE)
+lb<-(n-1)*s^2/chisq.rt
+ub<-(n-1)*s^2/chisq.lt
+print(paste("Interval estimate:[",lb,",",ub,"]",sep=""))
+```
+
+**2.	The manufacturer of this drug sets a target weight variance of 0.2. Is there any evidence that indicates the actual variance deviates (either positively or negatively) from the target significantly? Develop the null and alternative hypotheses, then use both p-value approach and critical value approach for hypothesis testing with 5% level of significance.**
+
+```{r}
+n<-18
+df<-n-1
+var.zero<-0.2
+s<-sqrt(0.36)
+alpha<-0.05
+#P-value approach:
+print("Null hypothesis (H0): There is no difference in actual variance deviates from the target.")
+print("Alternative hypothesis (Ha): There is significant difference in actual variance deviates from the target.")
+chisq<-(n-1)*s^2/var.zero
+p<-2*min(pchisq(chisq,df=df,lower.tail = TRUE),
+         pchisq(chisq,df=df,lower.tail = FALSE))
+print(paste("p=",p,"and alpha=",alpha))
+print(paste("p<=alpha is ",p<=alpha,".",sep=""))
+print(paste("H0 is ",ifelse(p<=alpha,"","not "),"rejected.",sep=""))
+#CV approach:
+print("Null hypothesis (H0): There is no difference in actual variance deviates from the target.")
+print("Alternative hypothesis (Ha): There is significant difference in actual variance deviates from the target.")
+chisq<-(n-1)*s^2/var.zero
+chisq.alpha.lt<-qchisq(alpha/2,df=df,lower.tail = TRUE)
+chisq.alpha.rt<-qchisq(alpha/2,df=df,lower.tail = FALSE)
+print(paste("chisq=",chisq,"and chisq.alpha,lt=",chisq.alpha.lt,"and chisq.alpha.rt=",chisq.alpha.rt))
+print(paste("Rejection region:(0,",chisq.alpha.lt,"] and [",chisq.alpha.rt,",+inf)",sep=""))
+print(paste("chisq<=chisq.alpha.lt is ",chisq<=chisq.alpha.lt,",chisq>=chisq.alpha.rt is ",chisq>=chisq.alpha.rt,sep=""))
+print(paste("H0 is ",ifelse(chisq<=chisq.alpha.lt | chisq>=chisq.alpha.rt,"","not "),"rejected.",sep=""))
+```
+
+Problem 2
+A sample of 16 items from population 1 has a sample variance of 5.8 and a sample of 21 items from population 2 has a sample variance of 2.4. Write R code for the following tasks. Post your R code and RStudio output (console output) below each task.
+
+```{r}
+
+```
+
+**1.Is there any evidence that indicates the variance of population 1 is significantly greater than that of population 2? Develop the null and alternative hypotheses, then use both p-value approach and critical value approach for hypothesis testing with 5% level of significance.**
+```{r}
+n1<-16
+n2<-21
+df1<-n1-1
+df2<-n2-1
+s1<-sqrt(5.8)
+s2<-sqrt(2.4)
+alpha<-0.05
+#P-value approach:
+print("Null hypothesis (H0):population 1 is no greater than population 2.")
+print("Alternative hypothesis (Ha):population 1 is significantly greater than population 2.")
+f<-s1^2/s2^2
+p<-pf(f,df1=df1,df2=df2,lower.tail = FALSE)
+print(paste("P=",p,"and alpha=",alpha))
+print(paste("p<=alpha is ",p<=alpha,".",sep=""))
+print(paste("H0 is ",ifelse(p<=alpha,"","not "),"rejected.",sep=""))
+#CV approach:
+print("Null hypothesis (H0):population 1 is no greater than population 2.")
+print("Alternative hypothesis (Ha):population 1 is significantly greater than population 2.")
+f<-s1^2/s2^2
+f.alpha.rt<-qf(alpha,df1=df1,df2=df2,lower.tail = FALSE)
+print(paste("f=",f,"and f.alpha.rt=",f.alpha.rt))
+print(paste("Rejection region:[",f.alpha.rt,",+inf)",sep=""))
+print(paste("f>=f.alpha.rt is ",f>=f.alpha.rt,sep=""))
+print(paste("H0 is ",ifelse(f>=f.alpha.rt,"","not "),"rejected.",sep=""))
+```

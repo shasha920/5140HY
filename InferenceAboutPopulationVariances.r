@@ -1,4 +1,4 @@
-#Example 8-1 Population Variance two tail
+#Example 8-1 Population Variance Interval Estimation
 n<-20
 s<-sqrt(0.0025)
 alpha<-1-0.95

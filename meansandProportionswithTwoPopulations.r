@@ -1,4 +1,4 @@
-#Example 7-1
+#Example 7-1 sigma known
 scores.df<-read.csv("Data_07_ExamScores.csv")
 #Use is.na function to ruole out NAs, which are used
 #to "patch"the shorter solumns so that all columns
@@ -33,7 +33,7 @@ print(paste("Rejection region: (-inf, ",-z.alpha,"] and [",z.alpha,", +inf)",sep
 print(paste("z <= -z.alpha is ",z<=-z.alpha, ", z>=z.alpha is ",z>=z.alpha,".",sep=""))
 print(paste("H0 is ",ifelse(z<=-z.alpha | z>=z.alpha, "","not ")," rejected.",sep=""))
 
-#Example 7-2
+#Example 7-2 sigma unknown
 check.df<-read.csv("Data_07_CheckAcct.csv")
 n1<-sum(!is.na(check.df$Cherry.Grove))
 n2<-sum(!is.na(check.df$Beechmont))
@@ -67,7 +67,7 @@ print(paste("t<=-t.alpha is ",t<=-t.alpha,", t>=t.alpha is ",t>=t.alpha,".",sep=
 print(paste("H0 is ",ifelse(t<=-t.alpha | t>=t.alpha,"","not ")," rejected.",sep=""))
 
 
-#Example 7-3
+#Example 7-3 sigma unknown
 software.df<-read.csv("Data_07_softwareTest.csv")
 n1<-sum(!is.na(software.df$Current))
 n2<-sum(!is.na(software.df$New))
@@ -99,7 +99,7 @@ print(paste("t>=t.alpha is ",t>=t.alpha,".",sep=""))
 print(paste("H0 is ",ifelse(t>=t.alpha,"","not ")," rejected.",sep=""))
 
 
-#Example 7-4
+#Example 7-4  Difference between two population proportions
 tax.df<-read.csv("Data_07_TaxPrep.csv")
 tax.df<-data.frame(apply(tax.df,c(1,2),function(x){ifelse(x=="",NA,x)}))
 n1<-sum(!is.na(tax.df$Office.1))

@@ -1,0 +1,115 @@
+---
+title: "HuaYangProblemSet07"
+author: "Hua Yang"
+date: "2022-12-02"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(car)
+library(ggfortify)
+library(ggplot2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GBA 5140 Statistics Essentials for Business Analytics
+## Problem Set 07
+## Means and Proportions with Two Populations
+
+
+Problem 1
+
+
+As reported by the Tampa Tribune, salary data show staff nurses in Tampa, Florida earn less than staff nurses in Dallas, Texas. Suppose that in a follow-up study of 40 staff nurses in Tampa and 50 staff nurses in Dallas you obtain the following results. Note that population standard deviations of nurses’ annual salary are not known, instead sample standard deviations are computed. Write R code for the following tasks. Post your R code and RStudio output (console output) below each task.
+
+
+|Tampa	     | Dallas       |
+|:----------:|:------------:|
+|n_1=40	     |n_2=50        |
+|¯x_1=$56100 | ¯x_2=$59400  |
+|s_1=$6000	 | s_2=$7000    |
+
+
+```{r }
+
+```
+
+**1.Are nursing salaries in Tampa lower than those in Dallas? Develop the null and alternative hypotheses, then use both p-value approach and critical value approach for hypothesis testing with 5% level of significance.**
+```{r }
+#sigma unknown
+n1<-40
+n2<-50
+x1.bar<-56100
+x2.bar<-59400
+s1<-6000
+s2<-7000
+x1.bar.se<-s1/sqrt(n1)
+x2.bar.se<-s2/sqrt(n2)
+df<-(x1.bar.se^2+x2.bar.se^2)^2/
+  ((x1.bar.se^4)/(n1-1)+(x2.bar.se^4)/(n2-1))
+#p-value
+print("Null hypothesis (H0): The nursing salaries in Tampa same or more than in Dallas.")
+print("Alternative hypothesis (Ha): The nursing salaries in Tampa lower than in Dallas.")
+t<-(x1.bar-x2.bar)/sqrt(x1.bar.se^2+x2.bar.se^2)
+alpha<-0.05
+p<-pt(t,df=df,lower.tail = TRUE)
+print(paste("p=",p,"and alpha=",alpha))
+print(paste("p<=alpha is ",p<=alpha,".",sep=""))
+print(paste("H0 is ",ifelse(p<=alpha,""," not")," rejected.",sep=""))
+#Critical value approach
+print("Null hypothesis (H0): The nursing salaries in Tampa same or more than in Dallas.")
+print("Alternative hypothesis (Ha): The nursing salaries in Tampa lower than in Dallas.")
+t<-(x1.bar-x2.bar)/sqrt(x1.bar.se^2+x2.bar.se^2)
+alpha<-0.05
+t.alpha<-qt(alpha,df=df,lower.tail = TRUE)
+print(paste("t=",t,"and t.alpha=",t.alpha))
+print(paste("Rejection region: (-inf, ",t.alpha,"]",sep=""))
+print(paste("t<=t.alpha is ",t<=t.alpha,".",sep=""))
+print(paste("H0 is ",ifelse(t<=t.alpha,"","not ")," rejected.",sep=""))
+
+```
+
+Problem 2
+
+
+Country Financial, a financial services company, uses surveys of adults age 18 and older to determine if personal financial fitness is changing over time (USA Today, April 4, 2012). In February 2012, a sample of 1000 adults showed 410 indicating that their financial security was more than fair. In February 2010, a sample of 900 adults showed 315 indicating that their financial security was more than fair. Write R code for the following tasks. Post your R code and RStudio output (console output) below each task.
+
+```{r}
+
+```
+
+**1.Is there any significant difference between the proportions of financially fit adults from 2010 and 2012? Develop the null and alternative hypotheses, then use both p-value approach and critical value approach for hypothesis testing with 5% level of significance.**
+
+```{r}
+#Difference between two population proportions
+n1<-1000
+n2<-900
+p1.bar<-410/n1
+p2.bar<-315/n2
+p.bar<-(n1*p1.bar+n2*p2.bar)/(n1+n2)
+p.bar.se<-sqrt(p.bar*(1-p.bar)*(1/n1+1/n2))
+#p-value
+print("Null hypothesis (H0): there is no difference between the proportions of financially fit adults from 2010 and 2012.")
+print("Alternative hypothesis (Ha): there is significant difference between the proportions of financially fit adults from 2010 and 2012.")
+z<-(p1.bar-p2.bar)/p.bar.se
+alpha<-0.05
+p<-2*min(pnorm(z,mean=0,sd=1,lower.tail = TRUE),
+         pnorm(z,mean=0,sd=1,lower.tail = FALSE))
+print(paste("p=",p,"and alpha=",alpha))
+print(paste("p<=alpha is ",p<=alpha,".",sep=""))
+print(paste("H0 is ",ifelse(p<=alpha,""," not")," rejected.",sep=""))
+#Critical value approach:
+print("Null hypothesis (H0): there is no difference between the proportions of financially fit adults from 2010 and 2012.")
+print("Alternative hypothesis (Ha): there is significant difference between the proportions of financially fit adults from 2010 and 2012.")
+z<-(p1.bar-p2.bar)/p.bar.se
+alpha<-0.05
+z.alpha<-qnorm(alpha/2,mean=0,sd=1,lower.tail = FALSE)
+print(paste("z=",z,"and z.alpha=",z.alpha))
+print(paste("Rejection region: (-inf, ",-z.alpha,"] and [",z.alpha,", +inf)",sep=""))
+print(paste("z<=-z.alpha is ",z<=-z.alpha,",z>=z.alpha is ",z>=z.alpha,".",sep=""))
+print(paste("H0 is ",ifelse(z<=-z.alpha | z>=z.alpha,"","not ")," rejected.",sep=""))
+```
+
